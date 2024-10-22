@@ -1,3 +1,4 @@
+### NOTES
 stuck with kubernetes namespace
 
 ```hcl
@@ -18,9 +19,19 @@ UPD: solved by token usage in K8s provider
 token = data.aws_eks_cluster_auth.cluster.token
 ```
 
-aws eks --region <region-name> update-kubeconfig --name <cluster-name>
+```hcl
+Error: Get "http://localhost/api/v1/namespaces/atlantis-test": dial tcp [::1]:80: connect: connection refused
+```
+resolved by: ```enable_cluster_creator_admin_permissions = true``` in eks modole
 
 atlantis docs: https://github.com/runatlantis/helm-charts/blob/main/charts/atlantis/values.yaml
 
+### Proof
+
+Terraform output:
 
 ![alt text](tf-resources.png)
+
+Atlantis app:
+
+![alt text](atlantis-url.png)

@@ -70,11 +70,9 @@ module "atlantis" {
   atlantis_helm_release_name = "atlantis"
   atlantis_chart_version     = "5.7.0"
 
-  atlantis_github_user    = var.github_username
-  atlantis_github_token   = var.github_token
-  atlantis_repo_whitelist = ["github.com/${var.github_username}/${var.github_repository}"]
-  github_webhook_secret   = random_password.webhook_secret.result
-  #github_webhook_secret   = var.github_webhook_secret
+  atlantis_github_user  = var.github_username
+  atlantis_github_token = var.github_token
+  github_webhook_secret = random_password.webhook_secret.result
 
   providers = {
     kubernetes = kubernetes

@@ -16,7 +16,7 @@ module "eks" {
     instance_types = var.instance_types
   }
 
-  enable_cluster_creator_admin_permissions = true #remove debug
+  enable_cluster_creator_admin_permissions = true #readme
 
   eks_managed_node_groups = {
     altantis = {
