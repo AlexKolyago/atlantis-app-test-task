@@ -1,3 +1,5 @@
+orgAllowlist: ""
+
 github:
   user: "<atlantis-user>"
   token: "<github-token>"
