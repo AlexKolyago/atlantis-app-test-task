@@ -1,4 +1,4 @@
-#orgAllowlist: ""
+orgAllowlist: ""
 
 github:
   user: "${github_user}"
