@@ -13,11 +13,6 @@ variable "atlantis_github_token" {
   type        = string
   sensitive   = true
 }
-/*
-variable "atlantis_repo_whitelist" {
-  description = "Whitelist of repositories for Atlantis"
-  type        = list(string)
-}*/
 
 variable "atlantis_chart_version" {
   description = "Version of the Atlantis Helm chart"
