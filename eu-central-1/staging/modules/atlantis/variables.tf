@@ -1,7 +1,6 @@
 variable "kubernetes_namespace" {
   description = "Kubernetes namespace where Atlantis will be deployed"
   type        = string
-  default     = "atlantis-test"
 }
 
 variable "atlantis_github_user" {
@@ -23,13 +22,11 @@ variable "atlantis_repo_whitelist" {
 variable "atlantis_chart_version" {
   description = "Version of the Atlantis Helm chart"
   type        = string
-  default     = "5.7.0"
 }
 
 variable "atlantis_helm_release_name" {
   description = "Name of the Atlantis Helm release"
   type        = string
-  default     = "atlantis"
 }
 
 variable "github_webhook_secret" {

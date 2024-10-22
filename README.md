@@ -11,3 +11,16 @@ module.atlantis.kubernetes_namespace.atlantis: Creating...
 │
 ╵
 ```
+
+UPD: solved by token usage in K8s provider
+
+```hcl
+token = data.aws_eks_cluster_auth.cluster.token
+```
+
+aws eks --region <region-name> update-kubeconfig --name <cluster-name>
+
+atlantis docs: https://github.com/runatlantis/helm-charts/blob/main/charts/atlantis/values.yaml
+
+
+![alt text](tf-resources.png)

@@ -1,0 +1,12 @@
+github:
+  user: "<atlantis-user>"
+  token: "<github-token>"
+  secret: "<webhook-secret>"
+
+service:
+  type: LoadBalancer
+
+atlantisDataDirectory: "/home/atlantis/data"
+
+volumeClaim:
+  enabled: false

@@ -40,26 +40,35 @@ module "eks" {
 }
 
 # EKS auth
-resource "local_file" "aws_auth_configmap" {
-  content = templatefile("${path.module}/modules/aws-auth/aws-auth.yaml.tpl", {
-    terraform_role_arn     = data.aws_caller_identity.current.arn
-    eks_admin_role_arn     = module.iam.eks_admin_role_arn
-    eks_read_only_role_arn = module.iam.eks_read_only_role_arn
-  })
-  filename = "${path.module}/aws-auth.yaml"
-}
+module "eks_auth" {
+  source  = "terraform-aws-modules/eks/aws//modules/aws-auth"
+  version = "~> 20.0"
 
-resource "null_resource" "apply_aws_auth_configmap" {
-  depends_on = [module.eks]
+  manage_aws_auth_configmap = true
 
-  provisioner "local-exec" {
-    command = "kubectl apply -f ${local_file.aws_auth_configmap.filename}"
-  }
+  aws_auth_roles = [
+    {
+      rolearn  = module.iam.eks_admin_role_arn
+      username = "eks-admin"
+      groups   = ["system:masters"]
+    },
+    {
+      rolearn  = module.iam.eks_read_only_role_arn
+      username = "eks-read_only"
+      groups   = ["system:aggregate-to-view"]
+    }
+  ]
+
+  depends_on = [module.eks, module.iam]
 }
 
 # altantis
 module "atlantis" {
   source = "./modules/atlantis"
+
+  kubernetes_namespace       = "atlantis-test"
+  atlantis_helm_release_name = "atlantis"
+  atlantis_chart_version     = "5.7.0"
 
   atlantis_github_user    = var.github_username
   atlantis_github_token   = var.github_token
@@ -68,8 +77,8 @@ module "atlantis" {
   #github_webhook_secret   = var.github_webhook_secret
 
   providers = {
-    kubernetes = kubernetes.eks
-    helm       = helm.atlantis
+    kubernetes = kubernetes
+    helm       = helm
   }
   depends_on = [module.eks]
 }

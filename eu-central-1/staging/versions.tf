@@ -17,7 +17,10 @@ terraform {
 }
 
 provider "aws" {
-  region = var.aws_region
+  region     = var.aws_region
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
+
   default_tags {
     tags = {
       "managed_by"  = "terraform"
@@ -41,42 +44,15 @@ data "aws_eks_cluster_auth" "cluster" {
 }
 
 provider "kubernetes" {
-  alias                  = "eks"
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "aws"
-    args = [
-      "eks",
-      "get-token",
-      "--cluster-name",
-      data.aws_eks_cluster.cluster.name,
-      "--region",
-      var.aws_region
-    ]
-  }
+  token                  = data.aws_eks_cluster_auth.cluster.token
 }
 
 provider "helm" {
-  alias = "atlantis"
-
   kubernetes {
     host                   = data.aws_eks_cluster.cluster.endpoint
     cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-
-    exec {
-      api_version = "client.authentication.k8s.io/v1beta1"
-      command     = "aws"
-      args = [
-        "eks",
-        "get-token",
-        "--cluster-name",
-        data.aws_eks_cluster.cluster.name,
-        "--region",
-        var.aws_region
-      ]
-    }
+    token                  = data.aws_eks_cluster_auth.cluster.token
   }
 }
