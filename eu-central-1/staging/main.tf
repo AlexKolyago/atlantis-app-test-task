@@ -74,7 +74,6 @@ module "atlantis" {
   atlantis_github_token   = var.github_token
   atlantis_repo_whitelist = ["github.com/${var.github_username}/${var.github_repository}"]
   github_webhook_secret   = random_password.webhook_secret.result
-  #github_webhook_secret   = var.github_webhook_secret
 
   providers = {
     kubernetes = kubernetes

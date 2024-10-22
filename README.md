@@ -1,3 +1,4 @@
+### NOTES
 stuck with kubernetes namespace
 
 ```hcl
@@ -22,5 +23,12 @@ aws eks --region <region-name> update-kubeconfig --name <cluster-name>
 
 atlantis docs: https://github.com/runatlantis/helm-charts/blob/main/charts/atlantis/values.yaml
 
+### Proof
+
+Terraform output:
 
 ![alt text](tf-resources.png)
+
+Atlantis app:
+
+![alt text](atlantis-url.png)
