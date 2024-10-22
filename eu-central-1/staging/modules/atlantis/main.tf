@@ -16,6 +16,7 @@ resource "helm_release" "atlantis" {
       github_user           = var.atlantis_github_user
       github_token          = var.atlantis_github_token
       github_webhook_secret = var.github_webhook_secret
+      orgAllowlist          = var.atlantis_allow_list
     })
   ]
 

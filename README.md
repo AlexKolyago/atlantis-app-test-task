@@ -1,3 +1,34 @@
+### Deployment
+
+```hcl
+terraform init
+terraform plan
+terraform apply
+```
+
+### Proof
+
+Terraform output:
+
+![alt text](proof/tf-resources.png)
+
+Atlantis app:
+
+![alt text](proof/atlantis-url.png)
+
+Working webhooks:
+
+![alt text](proof/webhooks.png)
+
+Atlantis synced by PR:
+
+![alt text](proof/atlantis-pr.png)
+
+Atlantis tf plan:
+
+![alt text](proof/tf-atlantis-plan.png)
+
+
 ### NOTES
 stuck with kubernetes namespace
 
@@ -25,13 +56,3 @@ Error: Get "http://localhost/api/v1/namespaces/atlantis-test": dial tcp [::1]:80
 resolved by: ```enable_cluster_creator_admin_permissions = true``` in eks modole
 
 atlantis docs: https://github.com/runatlantis/helm-charts/blob/main/charts/atlantis/values.yaml
-
-### Proof
-
-Terraform output:
-
-![alt text](tf-resources.png)
-
-Atlantis app:
-
-![alt text](atlantis-url.png)

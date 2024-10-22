@@ -29,3 +29,8 @@ variable "github_webhook_secret" {
   type        = string
   sensitive   = true
 }
+
+variable "atlantis_allow_list" {
+  description = "GitHub allow list for Atlantis"
+  type        = string
+}
