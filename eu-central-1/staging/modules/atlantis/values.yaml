@@ -1,4 +1,4 @@
-orgAllowlist: ""
+orgAllowlist: "github.com/AlexKolyago/atlantis-app-test-task"
 
 github:
   user: "${github_user}"
